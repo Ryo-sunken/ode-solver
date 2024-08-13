@@ -20,9 +20,9 @@ where
     T: Float + Display,
     S: Write,
 {
-    fn solve(&self, x0: Matrix<T>, dt: T, t_end: T, result_file: &mut Writer<S>) {
+    fn solve(&self, x0: &Matrix<T>, dt: T, t_end: T, result_file: &mut Writer<S>) {
         let mut t = T::zero();
-        let mut x = x0;
+        let mut x = x0.clone();
 
         write_state(&x, t, result_file);
 
@@ -46,9 +46,9 @@ where
     T: Float + Display,
     S: Write,
 {
-    fn solve(&self, x0: Matrix<T>, dt: T, t_end: T, result_file: &mut Writer<S>) {
+    fn solve(&self, x0: &Matrix<T>, dt: T, t_end: T, result_file: &mut Writer<S>) {
         let mut t = T::zero();
-        let mut x = x0;
+        let mut x = x0.clone();
         
         write_state(&x, t, result_file);
 
