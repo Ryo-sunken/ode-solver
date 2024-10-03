@@ -9,3 +9,7 @@ edition = "2021"
 matrix = { git = "https://github.com/Ryo-sunken/matrix-rs.git" }
 csv = "1.3.0"
 num-traits = "0.2.17"
+
+[features]
+default = []
+rayon = [ "matrix/rayon" ]
