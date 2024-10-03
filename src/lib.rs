@@ -69,7 +69,7 @@ where
     fn post_process(&self, x: &Matrix<T>) -> Matrix<T>;
 }
 
-#[cfg(not(feature="rayon"))]
+#[cfg(feature="rayon")]
 pub trait RungeKuttaSolver<T, S>
 where 
     T: Float + Display + Send + Sync,
