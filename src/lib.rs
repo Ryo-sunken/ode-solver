@@ -35,7 +35,7 @@ where
         while t <= t_end {
             let dx = Self::dot_x(self, &x, t) * dt;
 
-            x = Self::post_process(self, &(&x + dx));
+            x = self.post_process(&(&x + dx));
             t = t + dt;
 
             table.push(table_row(&x, t));
@@ -63,7 +63,7 @@ where
         while t <= t_end {
             let dx = Self::dot_x(self, &x, t) * dt;
 
-            x = Self::post_process(self, &(&x + dx));
+            x = self.post_process(&(&x + dx));
             t = t + dt;
 
             table.push(table_row(&x, t));
@@ -100,7 +100,7 @@ where
 
             let dx = (k1 + k2 * two + k3 * two + k4) / six;
 
-            x = Self::post_process(self, &(&x + dx));
+            x = self.post_process(&(&x + dx));
             t = t + dt;
 
             table.push(table_row(&x, t));
@@ -137,7 +137,7 @@ where
 
             let dx = (k1 + k2 * two + k3 * two + k4) / six;
 
-            x = Self::post_process(self, &(&x + dx));
+            x = self.post_process(&(&x + dx));
             t = t + dt;
 
             table.push(table_row(&x, t));
@@ -149,9 +149,4 @@ where
     fn dot_x(&self, x: &Matrix<T>, t: T) -> Matrix<T>;
 
     fn post_process(&self, x: &Matrix<T>) -> Matrix<T>;
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
 }
