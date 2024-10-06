@@ -61,7 +61,7 @@ where
         let mut table = vec![table_row(&x, t)];
 
         while t <= t_end {
-            let dx = Self::dot_x(self, &x, t) * dt;
+            let dx = self.dot_x(&x, t) * dt;
 
             x = self.post_process(&(&x + dx));
             t = t + dt;
@@ -130,10 +130,10 @@ where
         let six = two + two + two;
 
         while t <= t_end {
-            let k1 = Self::dot_x(self, &x, t) * dt;
-            let k2 = Self::dot_x(self, &(&x + &k1 * half), t + dt * half) * dt;
-            let k3 = Self::dot_x(self, &(&x + &k2 * half), t + dt * half) * dt;
-            let k4 = Self::dot_x(self, &(&x + &k3), t + dt) * dt;
+            let k1 = self.dot_x(&x, t) * dt;
+            let k2 = self.dot_x(&(&x + &k1 * half), t + dt * half) * dt;
+            let k3 = self.dot_x(&(&x + &k2 * half), t + dt * half) * dt;
+            let k4 = self.dot_x(&(&x + &k3), t + dt) * dt;
 
             let dx = (k1 + k2 * two + k3 * two + k4) / six;
 
