@@ -115,6 +115,40 @@ where
 }
 
 #[cfg(not(feature = "rayon"))]
+pub trait DelayedEulerSolver<T, S>
+where
+    T: Float + Display,
+    S: Write,
+{
+    fn solve(&mut self, x0: &Matrix<T>, dt: T, t_end: T, result_file: &mut Writer<S>) {
+        let mut t = T::zero();
+        let mut k = 0;
+        let mut x = x0.clone();
+        let mut table = vec![table_row(&x, t)];
+
+        while t <= t_end {
+            let dx = self.dot_x(&x, t, k) * dt;
+
+            x = self.post_process(&(&x + dx));
+            t = t + dt;
+            k += 1;
+
+            self.push_buffer(&x, k);
+
+            table.push(table_row(&x, t));
+        }
+
+        write_result(&table, result_file);
+    }
+
+    fn dot_x(&self, x: &Matrix<T>, t: T, k: usize) -> Matrix<T>;
+
+    fn post_process(&self, x: &Matrix<T>) -> Matrix<T>;
+
+    fn push_buffer(&mut self, x: &Matrix<T>, k: usize);
+}
+
+#[cfg(not(feature = "rayon"))]
 pub trait RungeKuttaSolver<T, S>
 where
     T: Float + Display,
