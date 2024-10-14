@@ -127,8 +127,8 @@ where
         let mut table = vec![table_row(&x, t)];
 
         while t <= t_end {
-            self.push_buffer(&x, k);
             let dx = self.dot_x(&x, t, k) * dt;
+            self.push_buffer(&x, k);
 
             x = self.post_process(&(&x + dx));
             t = t + dt;
