@@ -125,15 +125,16 @@ where
         let mut k = 0;
         let mut x = x0.clone();
         let mut table = vec![table_row(&x, t)];
+        self.push_buffer(&x, k);
 
         while t <= t_end {
             let dx = self.dot_x(&x, t, k) * dt;
-            self.push_buffer(&x, k);
 
             x = self.post_process(&(&x + dx));
             t = t + dt;
             k += 1;
-
+            
+            self.push_buffer(&x, k);
             table.push(table_row(&x, t));
         }
 
